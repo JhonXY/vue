@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>template与render</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!-- template一般用来日常写，render更底层，更有利于组件开发 -->
+</head>
+<body>
+    <div id="demo"></div>
+    <!-- <script type="x-template" id="temp">
+        <div>what is {{abc}}</div>
+    </script>
+    <script>
+        new Vue({
+            el:"#demo",
+            data:{
+                abc:1
+            },
+            template:"#temp"
+        })
+    </script> -->
+    <script>
+
+        new Vue({
+            el:"#demo",
+            data:{
+
+            },
+            render(createElement){
+                // createElement接受参数的格式 ("",{ xx:{xx:xx}, xx:{xx:xx} }, [], xx)
+                //                            dom     各个属性              子元素 innerText
+                return createElement(
+                    "ul",{class:{bg:1},style:{fontsize:"50px"},attrs:{abc:"miaov"}},
+                    "ul",{class:{bg:1}, domProps:{}},
+                    [
+                        createElement("li", [createElement("span",{class:{shit:1}},1)],1),
+                        createElement("li",2),
+                        createElement("li",3),
+                    ]
+                )
+            }
+        })
+    </script>
+</body>
+</html>
