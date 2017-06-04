@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-for</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+    <!-- 在 v-for 块中，我们拥有对父作用域属性的完全访问权限。 v-for 还支持一个可选的第二个参数为当前项的索引。 -->
+    <ul id="example-2">
+      <li v-for="(item, index) in items">
+        {{ parentMessage }} - {{ index }} - {{ item.message }}
+      </li>
+    </ul>
+
+    <script type="text/javascript">
+    var example2 = new Vue({
+        el: '#example-2',
+        data: {
+            parentMessage: 'Parent',
+            items: [
+              { message: 'Foo' },
+              { message: 'Bar' }
+            ]
+        }
+    })
+    </script>
+
+    <!-- 也可以用 v-for 通过一个data的属性来迭代。 -->
+    <ul class="repeat-object">
+      <li v-for="value of object">
+        {{ value }}
+      </li>
+    <!-- 也可以提供第二个的参数为键名,第三个参数为索引 -->
+      <li v-for="(value, key, index) of object" >
+        {{ index }}. {{ key }} : {{ value }}
+      </li>
+      <!-- 这些v-指令都只在被vue对象作用的范围中才会生效 -->
+      <!-- v-for 也可以取整数。在这种情况下，它将重复多次模板。 -->
+      <div>
+        <span v-for="n in 10">{{ n }}</span>
+      </div>
+    </ul>
+
+    <script type="text/javascript">
+        new Vue({
+            el: '.repeat-object',
+            data: {
+                object: {
+                    FirstName: 'John',
+                    LastName: 'Doe',
+                    Age: 30
+                }
+            }
+        })
+    </script>
+
+    <li id="todo" v-for="todo of todos" v-if="!todo.isComplete">
+      {{ todo.detail }}
+    </li>
+    <script src="js/vue-resource.js"></script>
+    <script type="text/javascript">
+        vm = new Vue({
+            el:'#todo',
+            data:{
+                todos:[]
+            },
+            mounted: function() {
+                this.cartView();
+            },
+            methods:{
+                cartView: function(){
+                    this.$http.get("data/todoData.json", {"id":123}).then=>{
+                        this.todos = res.data.result.list;
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

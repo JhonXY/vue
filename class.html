@@ -18,12 +18,52 @@
 <body>
     <div id="demo">
         <span class="fontsize" :class='{red:addClass}'>hello</span>
+        <!-- 我们可以把一个数组传给 v-bind:class ，以应用一个 class 列表： -->
+        <span class="fontsize" :class='[add1,add2]'>hello</span>
     </div>
     <script type="text/javascript">
         new Vue({
             el:"#demo",
+            // 这种data负责是否加入这个值，模版负责声明加入的值
             data:{
-                addClass:true
+                addClass:true,
+                add1:'shit',
+                add2:false
+            }
+        })
+    </script>
+
+    <div class="app" :class="classNew"></div>
+    <script type="text/javascript">
+        new Vue({
+            el:'.app',
+            // 你也可以直接绑定数据里的一个对象
+            // 这种将加入到dom中的一个class组打包到了一个data的属性中，从模版上看不到加入了啥或者是否加入了
+            data:{
+                classNew:{
+                    shit:true,
+                    fuck:false
+                }
+            }
+        })
+    </script>
+
+    <!-- 渲染的结果和上面一样。我们也可以在这里绑定返回对象的计算属性。这是一个常用且强大的模式： -->
+    <div class="computed" :class="classNew2"></div>
+    <script type="text/javascript">
+        new Vue({
+            el:".computed",
+            data:{
+                isActive: true,
+                error: null
+            },
+            computed:{
+                classNew2: function () {
+                    return {
+                      active: this.isActive && !this.error,
+                      'text-danger': this.error && this.error.type === 'fatal',
+                    }
+                }
             }
         })
     </script>

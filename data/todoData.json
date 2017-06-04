@@ -1,0 +1,21 @@
+{
+  "status":1,
+  "result":{
+    "list":[
+        {
+            "detail":"Do the dishes",
+            "isComplete":true
+        },
+        {
+            "detail":"Take out the trash",
+            "isComplete":false
+
+        },
+        {
+            "detail":"Mow the lawn",
+            "isComplete":true
+        }
+    ]
+  },
+  "message":""
+}

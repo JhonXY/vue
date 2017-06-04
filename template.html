@@ -9,32 +9,36 @@
     <!-- template一般用来日常写，render更底层，更有利于组件开发 -->
 </head>
 <body>
-    <div id="demo"></div>
-    <!-- <script type="x-template" id="temp">
-        <div>what is {{abc}}</div>
-    </script>
+    <div id="demo">
+        <!-- <script type="x-template" id="temp">
+            <div>what is {{abc}}</div>
+        </script>
+        <script>
+            new Vue({
+                el:"#demo",
+                data:{
+                    abc:1
+                },
+                template:"#temp"
+            })
+        </script> -->
+    </div>
+    <!-- 使用 v-once 指令，也能执行一次性地插值，当数据改变时，插值处的内容不会更新,这会影响到该节点上所有的数据绑定：-->
+    <div class="next">
+    <p v-if="seen">Now you see me</p>
+    <span v-once>This will never change: {{msg | capitalize}}</span>
+    </div>
     <script>
         new Vue({
             el:"#demo",
             data:{
-                abc:1
-            },
-            template:"#temp"
-        })
-    </script> -->
-    <script>
-
-        new Vue({
-            el:"#demo",
-            data:{
-
             },
             render(createElement){
                 // createElement接受参数的格式 ("",{ xx:{xx:xx}, xx:{xx:xx} }, [], xx)
                 //                            dom     各个属性              子元素 innerText
-                return createElement(
+                return vs = createElement(
                     "ul",{class:{bg:1},style:{fontsize:"50px"},attrs:{abc:"miaov"}},
-                    "ul",{class:{bg:1}, domProps:{}},
+                    // "ul",{class:{bg:1}, domProps:{}},
                     [
                         createElement("li", [createElement("span",{class:{shit:1}},1)],1),
                         createElement("li",2),
@@ -43,6 +47,26 @@
                 )
             }
         })
+
+        new Vue({
+            el:".next",
+            data:{
+                msg:"12345",
+                seen:false
+            },
+            // 过滤器只能在 mustache 绑定和 v-bind 表达式（从 2.1.0 开始支持）中使用，因为过滤器设计目的就是用于文本转换。
+            // 过滤器可以串联
+            // 过滤器是 JavaScript 函数，因此可以接受参数：
+            filters: {
+                capitalize: function (value) {
+                  if (!value) return ''
+                  value = value.toString()
+                  return value.slice(3)
+                }
+            }
+        })
     </script>
+
+
 </body>
 </html>
