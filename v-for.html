@@ -57,24 +57,64 @@
         })
     </script>
 
-    <li id="todo" v-for="todo of todos" v-if="!todo.isComplete">
-      {{ todo.detail }}
+    <ul id="do">
+        <!--v-for 的优先级比 v-if 更高，这意味着 v-if 将分别重复运行于每个 v-if 循环中。-->
+        <!--v-for中是不能使用计算属性computed的，这时候你得使用methods-->
+    <li v-for="todo in todoTh" v-if="!todo.isComplete" :key="todo.id">
+      <div>
+          {{ todo.detail }}
+      </div>
     </li>
+    </ul>
     <script src="js/vue-resource.js"></script>
     <script type="text/javascript">
         vm = new Vue({
-            el:'#todo',
+            el:'#do',
             data:{
-                todos:[]
+                todoTh:[]
             },
             mounted: function() {
-                this.cartView();
+                this.$nextTick(function () {
+                    this.cartView();
+                });
             },
             methods:{
                 cartView: function(){
-                    this.$http.get("data/todoData.json", {"id":123}).then=>{
-                        this.todos = res.data.result.list;
-                    }
+                    this.$http.get("data/todoData.json", {"id":1}).then(res=>{
+                        this.todoTh = res.data.result.list;
+                        console.log(res)
+                        console.log(this.todoTh)
+                    })
+                }
+            }
+        })
+    </script>
+
+    <ul class="eg">
+    <li v-for="n in evenNumbers">{{ n }}</li>
+    <li v-for="n in even(numbers)">{{ n }}</li>
+    </ul>
+
+    <!--有时，我们想要显示一个数组的过滤或排序副本，而不实际改变或重置原始数据。在这种情况下，可以创建返回过滤或排序数组的计算属性。-->
+    <!--计算属性不适用的情况下 (例如，在嵌套 v-for 循环中) 使用 method 方法-->
+    <script>
+        new Vue({
+            el:'.eg',
+            data:{
+                numbers:[1,2,10,3,4,5]
+            },
+            computed:{
+                evenNumbers: function () {
+                    return this.numbers.filter(function (number) {
+                        return number % 2 === 0
+                    })
+                }
+            },
+            methods:{
+                even: function (numbers) {
+                    return numbers.filter(function (number) {
+                        return number % 2 === 0
+                    })
                 }
             }
         })
