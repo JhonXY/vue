@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-on</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="example-1">
+        <!--v-on 指令监听 DOM 事件来触发一些 JavaScript 代码。-->
+        <button v-on:click="counter += 1">增加 1</button>
+        <!--接收一个定义的方法来调用。-->
+        <p @click="greet">这个按钮被点击了 {{ counter }} 次。</p>
+        <!--也可以用内联 JavaScript 语句-->
+        <div>
+            <button @click="say('hi')">Say hi</button>
+            <button @click="say('what')">Say what</button>
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el:'#example-1',
+            data:{
+                counter:0
+            },
+            // methods 最好只有纯粹的数据逻辑，而不是去处理 DOM 事件细节。
+            // 为了解决这个问题， Vue.js 为 v-on 提供了 事件修饰符。通过由点(.)表示的指令后缀来调用修饰符。
+            methods:{
+                greet:function (event) {
+                    alert('fuck' + this.name + '!')
+                    alert(event.target.tagName)
+                },
+                say: function (message) {
+                    alert(message)
+                }
+            }
+        })
+    </script>
+</body>
+</html>
