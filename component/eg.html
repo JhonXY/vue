@@ -17,6 +17,7 @@
 
     <script type="text/javascript">
     // 组件的名但并不显示成为dom，接受的属性｛props：绑定的属性，名为todo， template：实际显示的dom｝
+    // 要确保在初始化根实例 之前 注册了组件
         Vue.component('todo-item',{
             props:['todo'],
             template:'<li>{{todo.text}}</li>'

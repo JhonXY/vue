@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>prop</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body style="padding: 50px;">
+    <div id="example">
+      <!-- 当使用的不是字符串模版，camelCased (驼峰式) 命名的 prop 需要转换为相对应的 kebab-case (短横线隔开式) 命名 -->
+      <!-- 就比如这里的why-this，这是html式的表达，whyThis则是js式表达-->
+        <simple-counter why-this="123"></simple-counter>
+        <simple-counter></simple-counter>
+        <simple-counter></simple-counter>
+        <br>
+        <!-- 动态prop，即prop不是在组件定义的prop属性里，而是利用v-bind绑定一个父类Dom，引用其绑定的数据，利用v-model实现双向数据绑定-->
+            <input v-model="parentMsg">
+            <br>
+            <!-- 这里相当于将parentMsg的数据传给了my-message这个html属性 -->
+            <child :my-message="parentMsg"></child>
+    </div>
+
+    <script type="text/javascript">
+        Vue.component('simple-counter', {
+            template:'<button style="padding: 50px; border:solid; border-color:red green blue pink;" @click="counter += 1">{{counter}}{{whyThis}}</button>',
+            // 要让子组件使用父组件的数据，我们需要通过子组件的props选项
+            // 子组件要显式地用 props 选项声明它期待获得的数据
+            // prop 是单向绑定的：当父组件的属性变化时，将传导给子组件，但是不会反过来
+            props:['whyThis'],
+            data: function(){
+                return {counter: 0}
+            }
+        });
+
+        Vue.component('child', {
+            template:'<span>{{myMessage}}</span>',
+            // props是组件父类的属性所以这里是myMessage
+            props:['myMessage'],
+        });
+
+        new Vue({
+            el:"#example",
+            data:{
+                parentMsg:"123"
+            }
+        })
+    </script>
+</body>
+</html>
