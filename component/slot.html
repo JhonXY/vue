@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>slot</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div class="eg">
+    <!-- 父组件模板的内容在父组件作用域内编译；子组件模板的内容在子组件作用域内编译。 -->
+    <!-- 无效 -->
+    <child-component v-show="someChildProperty"></child-component>
+    </div>
+    <script type="text/javascript">
+    Vue.component('child-component', {
+        // 有效，因为是在正确的作用域内
+        template: '<div v-show="someChildProperty">Child</div>',
+        data: function () {
+            return {
+              someChildProperty: true
+            }
+        }
+    })
+
+    new Vue({
+        el:'.eg'
+    })
+    </script>
+</body>
+</html>
