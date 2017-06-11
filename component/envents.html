@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <title>events</title>
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
 </head>
+
 <body>
     <div id="counter">
         <p>{{total}}</p>
@@ -19,34 +21,36 @@
     </div>
 
     <script type="text/javascript">
-    Vue.component('button-counter', {
-        // 不能用$on侦听子组件抛出的事件，而必须在模板里直接用v-on绑定
-        template: '<button @click="increment">{{ counter }}</button>',
-        data: function () {
-            return {
-              counter: 0
-            }
-        },
-        methods: {
-            increment: function () {
-              this.counter += 1
-              // 这里使用 $emit(eventName) 触发自定义事件
-              this.$emit('incrementzdy')
-            }
-        },
-    })
+        Vue.component('button-counter', {
+            // 不能用$on侦听子组件抛出的事件，而必须在模板里直接用v-on绑定
+            template: '<button @click="increment">{{ counter }}</button>',
+            data: function() {
+                return {
+                    counter: 0
+                }
+            },
+            // 用于定义子组件中的方法
+            methods: {
+                increment: function() {
+                    this.counter += 1
+                    // 这里使用 $emit(eventName) 触发自定义事件
+                    this.$emit('incrementzdy')
+                }
+            },
+        })
 
-    new Vue({
-        el: '#counter',
-        data: {
-            total: 0
-        },
-        methods: {
-            incrementTotal: function () {
-              this.total += 1
+        new Vue({
+            el: '#counter',
+            data: {
+                total: 0
+            },
+            methods: {
+                incrementTotal: function() {
+                    this.total += 1
+                }
             }
-        }
-    })
+        })
     </script>
 </body>
+
 </html>
