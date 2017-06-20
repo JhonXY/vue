@@ -13,16 +13,16 @@
     <div id="counter">
         <p>{{total}}</p>
         <!-- 这里自定义创建了一个increment事件，并给该事件绑定了一个incrementTotal方法 -->
-        <!-- 父组件使用v-on来监听子组件触发的事件 -->
-        <!-- 先是点击产生的子元素来触发incremen方法，再由该方法中触发父元素的increzdy方法 -->
-        <!-- 用绑定的incrementzdy方法来触发incrementTotal方法 -->
+        <!-- 父组件使用v-on来绑定监听子组件触发的事件的方法 -->
+        <!-- 先是点击产生的子元素来触发incremen方法，再由该方法中通知触发父元素的increzdy方法 -->
+        <!-- 用绑定在button-counter上的incrementzdy方法来触发绑定在vue实例上的incrementTotal方法 -->
         <button-counter @incrementzdy="incrementTotal"></button-counter>
         <button-counter @incrementzdy="incrementTotal"></button-counter>
     </div>
 
     <script type="text/javascript">
         Vue.component('button-counter', {
-            // 不能用$on侦听子组件抛出的事件，而必须在模板里直接用v-on绑定
+            // 不能用$on侦听子组件抛出的事件，而必须在模板里用v-on绑定触发方法
             template: '<button @click="increment">{{ counter }}</button>',
             data: function() {
                 return {
@@ -33,7 +33,7 @@
             methods: {
                 increment: function() {
                     this.counter += 1
-                    // 这里使用 $emit(eventName) 触发自定义事件
+                    // 这里使用 $emit(eventName) 通知需要触发在父组件自定义的事件
                     this.$emit('incrementzdy')
                 }
             },

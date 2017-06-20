@@ -20,7 +20,11 @@
         </keep-alive>
     </div>
     <div id="exa2">
-        <Home :is="currentView"></Home>
+        <button @click="change">
+        <keep-alive>
+        <eg :is="currentView" :change="change"></eg>
+        </keep-alive>
+        </button>
     </div>
     <script>
         var vm1 = new Vue({
@@ -40,22 +44,27 @@
     </script>
     <script>
         // 也可以直接绑定到组件对象上
-        var Home = {
-            template: '<button @click="change">Welcome Home!</button>',
-            }
+        var eg = {
+            props:['change'],
+            template: '<span>Welcome {{change}}!</span>'
         }
-        var Posts = {
-            template: '<p>Welcome Posts!</p>'
-        }
+
         var vm2 = new Vue({
             el: '#exa2',
             data: {
-                currentView: Home
+                change: 'Home',
+                currentView: eg
             },
             methods: {
                 change: function(){
-                    this.currentView = Posts
+                    if(this.chang = 'Home'){
+                        this.chang = 'Posts'
+                    }
+                    else{
+                        this.chang ='Home'
+                    }
                 }
+            }
         })
     </script>
 </body>

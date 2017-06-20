@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,26 +8,73 @@
     <title>slot</title>
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
 </head>
+
 <body>
     <div class="eg">
-    <!-- 父组件模板的内容在父组件作用域内编译；子组件模板的内容在子组件作用域内编译。 -->
-    <!-- 无效 -->
-    <child-component v-show="someChildProperty"></child-component>
-    </div>
-    <script type="text/javascript">
-    Vue.component('child-component', {
-        // 有效，因为是在正确的作用域内
-        template: '<div v-show="someChildProperty">Child</div>',
-        data: function () {
-            return {
-              someChildProperty: true
-            }
-        }
-    })
+        <!-- 父组件模板的内容在父组件作用域内编译；子组件模板的内容在子组件作用域内编译。 -->
+        <!-- 无效 -->
+        <child-component v-show="someChildProperty"></child-component>
 
-    new Vue({
-        el:'.eg'
-    })
-    </script>
+        <div>
+            <h1>我是父组件的标题</h1>
+            <my-component>
+                <!-- 这里的内容会出现在slot标签中 -->
+                <p>这是一些初始内容</p>
+                <p>这是更多的初始内容</p>
+            </my-component>
+        </div>
+
+        <app-layout>
+            <!-- 在父组件中需要绑定slot属性来具体指向分发到子组件中的slot的位置，不设置则会全部输出到未设置name的slot中 -->
+            <h1 slot="header">这里可能是一个页面标题</h1>
+            <p>主要内容的一个段落。</p>
+            <p>另一个主要段落。</p>
+            <p slot="footer">这里有一些联系信息</p>
+        </app-layout>
+
+        <script type="text/javascript">
+            Vue.component('child-component', {
+                // 有效，因为是在正确的作用域内
+                template: '<div v-show="someChildProperty">Child</div>',
+                data: function() {
+                    return {
+                        someChildProperty: true
+                    }
+                }
+            })
+
+            // 单个slot
+            // slot分发的内容是在父作用域内编译的
+            Vue.component('my-component', {
+                template: ` <div>
+                      <h2>我是子组件的标题</h2>
+                          <slot>
+                            <!-- 这里的内容相当于默认值，父类没有内容时才会显示 -->
+                            只有在没有要分发的内容时才会显示。
+                          </slot>
+                    </div>`
+            })
+
+            // 具名slot
+            // 用一个特殊的属性 name 来配置如何分发内容。多个 slot 可以有不同的名字。具名 slot 将匹配内容片段中有对应 slot 特性的元素。
+            Vue.component('app-layout', {
+                template: ` <div class="container">
+                    <header>
+                        <slot name="header"></slot>
+                    </header>
+                    <main>
+                        <slot></slot>
+                    </main>
+                    <footer>
+                        <slot name="footer"></slot>
+                    </footer>
+                </div>`
+            })
+
+            new Vue({
+                el: '.eg'
+            })
+        </script>
 </body>
+
 </html>
