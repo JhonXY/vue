@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ref</title>
+</head>
+<body>
+    <div id="parent">
+        <!-- 使用 ref 为子组件指定一个索引 ID  -->
+        <user-profile ref="profile"></user-profile>
+    </div>
+    <script type="text/javascript">
+        Vue.component('user-profile',{
+            template:``
+        })
+        var parent = new Vue({ el: '#parent' })
+        // 访问子组件
+        var child = parent.$refs.profile
+    </script>
+</body>
+</html>
