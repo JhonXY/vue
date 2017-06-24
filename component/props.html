@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>prop</title>
+    <title>props</title>
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
 </head>
 <body style="padding: 50px;">
     <div id="example">
       <!-- 当使用的不是字符串模版，camelCased (驼峰式) 命名的 prop 需要转换为相对应的 kebab-case (短横线隔开式) 命名 -->
       <!-- 就比如这里的why-this，这是html式的表达，whyThis则是js式表达-->
-        <simple-counter why-this="123"></simple-counter>
+        <simple-counter></simple-counter>
         <simple-counter></simple-counter>
         <simple-counter></simple-counter>
         <br>
@@ -28,10 +28,23 @@
             // 要让子组件使用父组件的数据，我们需要通过子组件的props选项
             // 子组件要显式地用 props 选项声明它期待获得的数据
             // prop 是单向绑定的：当父组件的属性变化时，将传导给子组件，但是不会反过来
-            props:['whyThis'],
-            data: function(){
-                return {counter: 0}
+            // props:['whyThis'],
+            props:{
+                whyThis: {
+                    type: Number,
+                    default: 123
+                }
+            },
+            data(){
+                return{
+                    counter: 0
+                }
             }
+            // data: function(){
+            //     return {
+            //         counter: 0
+            //     }
+            // }
         });
 
         Vue.component('child', {

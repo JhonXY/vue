@@ -17,6 +17,7 @@
 </head>
 <body>
     <div id="demo">
+        <!-- 不加｛｝会被认定为字符串，这里是为了red->addClass->true生效 -->
         <span class="fontsize" :class='{red:addClass}'>hello</span>
         <!-- 我们可以把一个数组传给 v-bind:class ，以应用一个 class 列表： -->
         <span class="fontsize" :class='[add1,add2]'>hello</span>
@@ -26,9 +27,12 @@
             el:"#demo",
             // 这种data负责是否加入这个值，模版负责声明加入的值
             data:{
+                // 布尔值型，表示是否加入这个Class
+                add2:false,
                 addClass:true,
+                // 变量对象型，用一个变量对应一个class中引用的值
                 add1:'shit',
-                add2:false
+
             }
         })
     </script>
