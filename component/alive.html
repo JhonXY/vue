@@ -14,23 +14,16 @@
         <!-- 如果把切换出去的组件保留在内存中，可以保留它的状态或避免重新渲染。为此可以添加一个 keep-alive 指令参数 -->
         <keep-alive>
         <!-- 通过使用保留的 <component> 元素，动态地绑定到它的 is 特性，我们让多个组件可以使用同一个挂载点，并动态切换 -->
-        <component v-bind:is="currentView">
+        <component :is="currentView">
         <!-- 组件在 vm.currentview 变化时改变！ -->
         </component>
         </keep-alive>
-    </div>
-    <div id="exa2">
-        <button @click="change">
-        <keep-alive>
-        <eg :is="currentView" :change="change"></eg>
-        </keep-alive>
-        </button>
     </div>
     <script>
         var vm1 = new Vue({
             el: '#exa1',
             data: {
-                currentView: 'posts'
+                currentView: 'home'
             },
             components: {
                 home: {
@@ -42,26 +35,37 @@
             }
         })
     </script>
+    <div id="exa2">
+        <button @click="changeme" :change="change">
+        <keep-alive>
+        <component :is="currentView"></component>
+        </keep-alive>
+        {{change}} !
+        </button>
+    </div>
     <script>
         // 也可以直接绑定到组件对象上
-        var eg = {
-            props:['change'],
-            template: '<span>Welcome {{change}}!</span>'
+        var eg1 = {
+            template: '<p>Welcome home </p>',
+        }
+        var eg2 = {
+            template: '<p>Welcome post </p>',
         }
 
         var vm2 = new Vue({
             el: '#exa2',
             data: {
-                change: 'Home',
-                currentView: eg
+                change: 'eg1',
+                currentView: eg1
             },
             methods: {
-                change: function(){
-                    if(this.chang = 'Home'){
-                        this.chang = 'Posts'
-                    }
-                    else{
-                        this.chang ='Home'
+                changeme : function() {
+                    if(vm2.currentView = eg1){
+                        vm2.change = 'eg2',
+                        vm2.currentView = eg2
+                    }else{
+                        vm2.change ='eg1',
+                        vm2.currentView = eg1
                     }
                 }
             }

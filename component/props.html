@@ -24,7 +24,7 @@
 
     <script type="text/javascript">
         Vue.component('simple-counter', {
-            template:'<button style="padding: 50px; border:solid; border-color:red green blue pink;" @click="counter += 1">{{counter}}{{whyThis}}</button>',
+            template:'<button style="padding: 10px; border:solid; border-color:red green blue pink;" @click="counter += 1">{{counter}}{{whyThis}}</button>',
             // 要让子组件使用父组件的数据，我们需要通过子组件的props选项
             // 子组件要显式地用 props 选项声明它期待获得的数据
             // prop 是单向绑定的：当父组件的属性变化时，将传导给子组件，但是不会反过来
@@ -32,7 +32,7 @@
             props:{
                 whyThis: {
                     type: Number,
-                    default: 123
+                    default: 1
                 }
             },
             data(){
@@ -40,11 +40,6 @@
                     counter: 0
                 }
             }
-            // data: function(){
-            //     return {
-            //         counter: 0
-            //     }
-            // }
         });
 
         Vue.component('child', {

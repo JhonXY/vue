@@ -11,7 +11,10 @@
     <div class="app">
         <p>{{m}}</p>
         <!-- 文本 -->
+        <!-- 随着输出的行为动态的绑定 -->
         <input type="text" v-model="m" style="display: block" >
+        <!-- 等待输出行为的结束，再改变绑定的值 -->
+        <input type="text" v-model.lazy="m" style="display: block" >
         <br>
 
         <!-- 多行文本 -->

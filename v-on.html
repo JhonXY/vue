@@ -25,17 +25,18 @@
         new Vue({
             el:'#example-1',
             data:{
-                counter:0
+                counter:0,
+                name: 'you'
             },
             // methods 最好只有纯粹的数据逻辑，而不是去处理 DOM 事件细节。
             // 为了解决这个问题， Vue.js 为 v-on 提供了 事件修饰符。通过由点(.)表示的指令后缀来调用修饰符。
             methods:{
-                greet:function (event) {
-                    alert('fuck' + this.name + '!')
+                greet:function () {
+                    alert('fuck ' + this.name + ' !')
                     alert(event.target.tagName)
                 },
-                say: function (message) {
-                    alert(message)
+                say: function (say) {
+                    alert(say)
                 }
             }
         })
