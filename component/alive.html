@@ -7,6 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>alive</title>
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <style media="screen">
+        .fade-enter-active, .fade-leave-active{
+            transition: opacity .5s ease-out;
+        }
+        .fade-enter, .fade-leave-active{
+            opacity: 0;
+        }
+    </style>
 </head>
 
 <body>
@@ -37,35 +45,38 @@
     </script>
     <div id="exa2">
         <button @click="changeme" :change="change">
-        <keep-alive>
-        <component :is="currentView"></component>
-        </keep-alive>
+        <transition name="fade" mode="out-in">
+            <keep-alive>
+                <component :is="currentView"></component>
+            </keep-alive>
+        </transition>
         {{change}} !
         </button>
     </div>
     <script>
         // 也可以直接绑定到组件对象上
-        var eg1 = {
+        Vue.component('eg1', {
             template: '<p>Welcome home </p>',
-        }
-        var eg2 = {
+        });
+        Vue.component('eg2', {
             template: '<p>Welcome post </p>',
-        }
+        });
 
         var vm2 = new Vue({
             el: '#exa2',
             data: {
-                change: 'eg1',
-                currentView: eg1
+                change: 'eg1是我',
+                currentView: 'eg1'
             },
             methods: {
                 changeme : function() {
-                    if(vm2.currentView = eg1){
-                        vm2.change = 'eg2',
-                        vm2.currentView = eg2
+                    // js的等于一定得是三等
+                    if(vm2.currentView === 'eg1'){
+                        vm2.change = 'eg2是我',
+                        vm2.currentView = 'eg2'
                     }else{
-                        vm2.change ='eg1',
-                        vm2.currentView = eg1
+                        vm2.change = 'eg1是我',
+                        vm2.currentView = 'eg1'
                     }
                 }
             }
